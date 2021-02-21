@@ -15,4 +15,8 @@ defmodule Matematica do
       _ -> False
     end
   end
+
+  def fibo(1), do: 1
+  def fibo(2), do: 1
+  def fibo(n), do: fibo(n-1)+fibo(n-2)
 end
