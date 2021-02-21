@@ -8,4 +8,11 @@ defmodule Matematica do
       _ -> eh_primo(n, div-1)
     end
   end
+
+  def eh_par(n) do
+    case rem(n, 2) do
+      0 -> True
+      _ -> False
+    end
+  end
 end
