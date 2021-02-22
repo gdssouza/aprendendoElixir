@@ -1,16 +1,16 @@
 defmodule Arquivos do
-  def encontra_linhas([], _keys), do: nil
-  def encontra_linhas([head|tail], keys) do
+  def get_lines([], _keys), do: nil
+  def get_lines([head|tail], keys) do
     if String.contains?(head, keys) do IO.puts(head) end
-    encontra_linhas(tail, keys)
+    get_lines(tail, keys)
   end
-  def encontra_linhas(texto, keys) do
-    encontra_linhas(texto |> String.split("\n", trim: true), keys)
+  def get_lines(text, keys) do
+    get_lines(text |> String.split("\n", trim: true), keys)
   end
 
-  def consulta(caminho, keys) do
-    case File.read(caminho) do
-      {:ok, texto} -> encontra_linhas(texto, keys)
+  def search(path, keys) do
+    case File.read(path) do
+      {:ok, text} -> get_lines(text, keys)
       {:error, msg} -> msg
     end
   end

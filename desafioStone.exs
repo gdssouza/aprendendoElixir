@@ -1,30 +1,30 @@
 defmodule Pagamentos do
   # soma duas listas multiplicando os valores de mesmo indice
-  def custos([], []), do: []
-  def custos([headA|tailA], [headB|tailB]), do: [headA*headB] ++ custos(tailA,tailB)
+  def costs([], []), do: []
+  def costs([headA|tailA], [headB|tailB]), do: [headA*headB] ++ costs(tailA,tailB)
 
   # recebe lista de compras com os precos e retorna valor total
-  def soma([]), do: 0
-  def soma([head|tail]), do: head + soma(tail)
+  def sum_costs([]), do: 0
+  def sum_costs([head|tail]), do: head + sum_costs(tail)
 
   # recebe valor total e emails e retorna mapa
-  def mapa(_valor, _resto, []), do: %{}
-  def mapa(valor, 0, [head|tail] ), do: Map.put(mapa(valor, 0, tail), head, valor)
-  def mapa(valor, resto, [head|tail] ), do: Map.put(mapa(valor, resto-1, tail), head, valor+1)
+  def map(_value, _splitRest, []), do: %{}
+  def map(value, 0, [head|tail] ), do: Map.put(map(value, 0, tail), head,value)
+  def map(value, splitRest, [head|tail] ), do: Map.put(map(value, splitRest-1, tail), head, value+1)
 
   # validacao
-  def desafio(_listaCompras, []), do: %{}
-  def desafio([], _listaEmails), do: %{}
+  def challenge(_shoppingList, []), do: %{}
+  def challenge([], _emailList), do: %{}
   # recebe compras e emails e retorna a resposta do teste
-  def desafio([_itens, qtds, precos], listaEmails) do
+  def challenge([_itens, amount, prices], emailList) do
     # valor total da compra
-    vlTotal = soma(custos(qtds, precos))
+    vlTotal = sum_costs(costs(amount, prices))
     # quantidade de emails
-    lenEmails = Enum.count(listaEmails)
+    lenEmails = Enum.count(emailList)
     # valor a pagar
-    valor = div(vlTotal, lenEmails)
-    resto = rem(vlTotal, lenEmails)
+    value = div(vlTotal, lenEmails)
+    splitRest = rem(vlTotal, lenEmails)
     # construindo mapa
-    mapa(valor, resto, listaEmails)
+    map(value, splitRest, emailList)
   end
 end
